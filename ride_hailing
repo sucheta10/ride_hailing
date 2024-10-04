@@ -1,0 +1,734 @@
+CREATE DATABASE ride_hailing;
+
+USE ride_hailing;
+
+
+-- CUSTOMERS TABLE --
+CREATE TABLE customer (
+customer_id INT PRIMARY KEY,
+name VARCHAR(100),
+email VARCHAR(100),
+phone_number VARCHAR(20),
+rating DECIMAL(3,2),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+payment_method VARCHAR(50),
+status ENUM('active','suspended','deleted')
+);
+
+
+INSERT INTO customer (customer_id, name, email, phone_number, rating, created_at, payment_method, status)
+VALUES
+(1, 'John Doe', 'john.doe@example.com', '+1234567890', 4.50, '2023-10-01 14:25:36', 'Credit Card', 'active'),
+(2, 'Jane Smith', 'jane.smith@example.com', '+1234567891', 4.00, '2023-10-02 10:15:20', 'Paypal', 'active'),
+(3, 'Michael Johnson', 'michael.johnson@example.com', '+1234567892', 3.75, '2023-10-02 08:45:00', 'Debit Card', 'active'),
+(4, 'Emily Davis', 'emily.davis@example.com', '+1234567893', 4.90, '2023-10-03 16:35:12', 'Credit Card', 'suspended'),
+(5, 'Daniel Brown', 'daniel.brown@example.com', '+1234567894', 2.50, '2023-10-03 12:22:36', 'Paypal', 'deleted'),
+(6, 'Sophia Miller', 'sophia.miller@example.com', '+1234567895', 4.30, '2023-10-04 11:15:50', 'Cash', 'active'),
+(7, 'James Wilson', 'james.wilson@example.com', '+1234567896', 4.00, '2023-10-05 14:10:05', 'Credit Card', 'active'),
+(8, 'Olivia Moore', 'olivia.moore@example.com', '+1234567897', 4.75, '2023-10-05 09:50:15', 'Paypal', 'active'),
+(9, 'Liam Taylor', 'liam.taylor@example.com', '+1234567898', 3.85, '2023-10-06 15:30:00', 'Debit Card', 'suspended'),
+(10, 'Ava Anderson', 'ava.anderson@example.com', '+1234567899', 4.60, '2023-10-06 17:20:45', 'Cash', 'active'),
+(11, 'Mason Thomas', 'mason.thomas@example.com', '+1234567810', 3.90, '2023-10-07 14:00:36', 'Credit Card', 'deleted'),
+(12, 'Isabella Jackson', 'isabella.jackson@example.com', '+1234567811', 4.45, '2023-10-08 10:22:36', 'Paypal', 'active'),
+(13, 'Ethan White', 'ethan.white@example.com', '+1234567812', 3.70, '2023-10-08 11:45:00', 'Credit Card', 'active'),
+(14, 'Mia Harris', 'mia.harris@example.com', '+1234567813', 4.25, '2023-10-09 12:20:12', 'Cash', 'suspended'),
+(15, 'Lucas Martin', 'lucas.martin@example.com', '+1234567814', 4.95, '2023-10-10 13:10:36', 'Paypal', 'active'),
+(16, 'Amelia Thompson', 'amelia.thompson@example.com', '+1234567815', 4.10, '2023-10-10 14:25:50', 'Debit Card', 'active'),
+(17, 'Noah Garcia', 'noah.garcia@example.com', '+1234567816', 3.55, '2023-10-11 09:15:25', 'Credit Card', 'deleted'),
+(18, 'Harper Martinez', 'harper.martinez@example.com', '+1234567817', 4.35, '2023-10-11 16:30:00', 'Paypal', 'suspended'),
+(19, 'Benjamin Robinson', 'benjamin.robinson@example.com', '+1234567818', 4.60, '2023-10-12 14:20:15', 'Cash', 'active'),
+(20, 'Ella Clark', 'ella.clark@example.com', '+1234567819', 3.95, '2023-10-12 11:45:36', 'Debit Card', 'active'),
+(21, 'William Rodriguez', 'william.rodriguez@example.com', '+1234567820', 4.75, '2023-10-13 10:22:20', 'Credit Card', 'active'),
+(22, 'Aiden Lewis', 'aiden.lewis@example.com', '+1234567821', 3.65, '2023-10-13 11:30:45', 'Paypal', 'suspended'),
+(23, 'Abigail Lee', 'abigail.lee@example.com', '+1234567822', 4.85, '2023-10-14 14:45:12', 'Cash', 'active'),
+(24, 'Elijah Walker', 'elijah.walker@example.com', '+1234567823', 4.10, '2023-10-15 12:10:36', 'Credit Card', 'deleted'),
+(25, 'Charlotte Hall', 'charlotte.hall@example.com', '+1234567824', 3.75, '2023-10-16 15:25:00', 'Paypal', 'active'),
+(26, 'Logan Allen', 'logan.allen@example.com', '+1234567825', 4.55, '2023-10-17 16:40:36', 'Credit Card', 'active'),
+(27, 'Evelyn Young', 'evelyn.young@example.com', '+1234567826', 4.20, '2023-10-17 11:15:12', 'Cash', 'active'),
+(28, 'Jacob Hernandez', 'jacob.hernandez@example.com', '+1234567827', 3.50, '2023-10-18 14:30:45', 'Debit Card', 'suspended'),
+(29, 'Scarlett King', 'scarlett.king@example.com', '+1234567828', 4.30, '2023-10-19 10:45:50', 'Paypal', 'deleted'),
+(30, 'Matthew Wright', 'matthew.wright@example.com', '+1234567829', 4.65, '2023-10-20 09:30:36', 'Credit Card', 'active'),
+(31, 'Victoria Lopez', 'victoria.lopez@example.com', '+1234567830', 3.85, '2023-10-20 16:25:20', 'Debit Card', 'active'),
+(32, 'David Scott', 'david.scott@example.com', '+1234567831', 4.50, '2023-10-21 14:10:12', 'Cash', 'suspended'),
+(33, 'Lily Green', 'lily.green@example.com', '+1234567832', 4.80, '2023-10-22 11:45:00', 'Credit Card', 'active'),
+(34, 'Jackson Adams', 'jackson.adams@example.com', '+1234567833', 3.95, '2023-10-22 12:15:45', 'Paypal', 'deleted'),
+(35, 'Zoe Baker', 'zoe.baker@example.com', '+1234567834', 4.40, '2023-10-23 09:25:00', 'Cash', 'active'),
+(36, 'Sebastian Gonzalez', 'sebastian.gonzalez@example.com', '+1234567835', 4.15, '2023-10-23 10:10:36', 'Credit Card', 'active'),
+(37, 'Aria Perez', 'aria.perez@example.com', '+1234567836', 3.70, '2023-10-24 15:35:25', 'Debit Card', 'suspended'),
+(38, 'Luke Sanchez', 'luke.sanchez@example.com', '+1234567837', 4.55, '2023-10-24 16:45:36', 'Paypal', 'active'),
+(39, 'Grace Morris', 'grace.morris@example.com', '+1234567838', 4.35, '2023-10-25 11:50:00', 'Credit Card', 'deleted'),
+(40, 'Henry Murphy', 'henry.murphy@example.com', '+1234567839', 3.65, '2023-10-26 12:30:45', 'Cash', 'active'),
+(41, 'Penelope Rivera', 'penelope.rivera@example.com', '+1234567840', 4.75, '2023-10-26 10:00:15', 'Credit Card', 'active'),
+(42, 'Samuel Cooper', 'samuel.cooper@example.com', '+1234567841', 4.05, '2023-10-27 13:10:25', 'Paypal', 'active'),
+(43, 'Chloe Torres', 'chloe.torres@example.com', '+1234567842', 3.80, '2023-10-27 15:20:36', 'Cash', 'suspended'),
+(44, 'Owen Peterson', 'owen.peterson@example.com', '+1234567843', 4.95, '2023-10-28 14:50:12', 'Credit Card', 'active'),
+(45, 'Lillian Gray', 'lillian.gray@example.com', '+1234567844', 4.25, '2023-10-29 16:45:50', 'Debit Card', 'active'),
+(46, 'Dylan Ramirez', 'dylan.ramirez@example.com', '+1234567845', 3.75, '2023-10-29 12:15:45', 'Paypal', 'deleted'),
+(47, 'Hannah Hughes', 'hannah.hughes@example.com', '+1234567846', 4.35, '2023-10-30 11:10:00', 'Credit Card', 'active'),
+(48, 'Isaac Brooks', 'isaac.brooks@example.com', '+1234567847', 4.60, '2023-10-30 12:25:25', 'Cash', 'active'),
+(49, 'Savannah Wood', 'savannah.wood@example.com', '+1234567848', 3.95, '2023-10-31 14:15:36', 'Paypal', 'suspended'),
+(50, 'Levi Bell', 'levi.bell@example.com', '+1234567849', 4.85, '2023-10-31 15:40:12', 'Credit Card', 'active');
+
+-- DRIVER TABLE --
+
+CREATE TABLE driver (
+driver_id INT PRIMARY KEY,
+name VARCHAR(100),
+license_number VARCHAR(50),
+rating DECIMAL(3,2),
+status ENUM('active','suspended','deleted'),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO driver (driver_id, name, license_number, rating, status, created_at)
+VALUES
+(1, 'John Carter', 'ABC123456', 4.85, 'active', '2023-10-01 09:00:00'),
+(2, 'Alice Johnson', 'XYZ987654', 4.60, 'active', '2023-10-02 10:15:00'),
+(3, 'Michael Brown', 'DEF456789', 4.30, 'active', '2023-10-03 11:20:00'),
+(4, 'Sophia Miller', 'GHI321654', 4.50, 'suspended', '2023-10-04 12:30:00'),
+(5, 'Daniel Wilson', 'JKL654987', 3.90, 'active', '2023-10-05 14:00:00'),
+(6, 'Olivia Garcia', 'MNO123789', 4.80, 'active', '2023-10-06 09:45:00'),
+(7, 'Liam Martinez', 'PQR987321', 4.10, 'deleted', '2023-10-07 08:30:00'),
+(8, 'Emily Davis', 'STU654123', 4.95, 'active', '2023-10-08 13:20:00'),
+(9, 'James Anderson', 'VWX321987', 3.75, 'suspended', '2023-10-09 07:45:00'),
+(10, 'Isabella Thomas', 'YZA789654', 4.55, 'active', '2023-10-10 11:50:00'),
+(11, 'Henry Moore', 'BCD987654', 4.25, 'active', '2023-10-11 10:00:00'),
+(12, 'Chloe Martin', 'EFG123456', 4.70, 'active', '2023-10-12 14:30:00'),
+(13, 'Lucas White', 'HIJ654321', 4.45, 'active', '2023-10-13 08:45:00'),
+(14, 'Mason Lewis', 'KLM321654', 4.00, 'deleted', '2023-10-14 13:10:00'),
+(15, 'Lily Walker', 'NOP123789', 4.65, 'active', '2023-10-15 12:50:00'),
+(16, 'Ethan Young', 'QRS987123', 4.30, 'active', '2023-10-16 09:30:00'),
+(17, 'Ella Hall', 'TUV321987', 4.85, 'active', '2023-10-17 10:20:00'),
+(18, 'William King', 'WXY654987', 3.95, 'suspended', '2023-10-18 11:00:00'),
+(19, 'Ava Scott', 'ZAB789321', 4.75, 'active', '2023-10-19 14:00:00'),
+(20, 'Jackson Green', 'CDE987654', 4.10, 'active', '2023-10-20 09:15:00'),
+(21, 'Grace Perez', 'FGH123789', 4.55, 'active', '2023-10-21 08:30:00'),
+(22, 'Sebastian Gonzalez', 'IJK321654', 4.35, 'active', '2023-10-22 14:20:00'),
+(23, 'Penelope Lee', 'LMN654987', 4.90, 'suspended', '2023-10-23 07:50:00'),
+(24, 'Benjamin Clark', 'OPQ987123', 4.00, 'active', '2023-10-24 13:40:00'),
+(25, 'Aria Hernandez', 'RST321987', 4.75, 'active', '2023-10-25 10:10:00'),
+(26, 'Jack Rivera', 'UVW654321', 3.85, 'active', '2023-10-26 12:50:00'),
+(27, 'Harper Ramirez', 'XYZ123654', 4.40, 'deleted', '2023-10-27 11:30:00'),
+(28, 'Owen Baker', 'ABC789321', 4.15, 'active', '2023-10-28 14:00:00'),
+(29, 'Sophie Torres', 'DEF987654', 4.50, 'active', '2023-10-29 08:15:00'),
+(30, 'Alexander Brooks', 'GHI321987', 4.65, 'suspended', '2023-10-30 09:45:00'),
+(31, 'Mila Adams', 'JKL654321', 4.25, 'active', '2023-10-31 13:20:00'),
+(32, 'Logan Murphy', 'MNO987123', 4.85, 'active', '2023-11-01 10:15:00'),
+(33, 'Victoria Sanchez', 'PQR123654', 4.35, 'active', '2023-11-02 11:45:00'),
+(34, 'David Coleman', 'STU789321', 4.00, 'active', '2023-11-03 07:30:00'),
+(35, 'Scarlett Howard', 'VWX987654', 4.55, 'active', '2023-11-04 08:50:00'),
+(36, 'Matthew Ward', 'YZA321987', 4.20, 'active', '2023-11-05 12:10:00'),
+(37, 'Zoe Bryant', 'BCD654321', 4.65, 'suspended', '2023-11-06 09:25:00'),
+(38, 'Henry Russell', 'EFG123987', 3.75, 'active', '2023-11-07 10:50:00'),
+(39, 'Layla Fisher', 'HIJ987654', 4.50, 'active', '2023-11-08 11:00:00'),
+(40, 'Isaac Barnes', 'KLM654321', 4.10, 'active', '2023-11-09 13:30:00'),
+(41, 'Lillian Butler', 'NOP987123', 4.85, 'active', '2023-11-10 14:45:00'),
+(42, 'Elijah Bennett', 'QRS123654', 4.40, 'suspended', '2023-11-11 10:20:00'),
+(43, 'Hannah Ross', 'TUV987321', 3.95, 'active', '2023-11-12 11:30:00'),
+(44, 'Nathan Stewart', 'WXY654123', 4.75, 'active', '2023-11-13 12:00:00'),
+(45, 'Stella Hughes', 'ZAB321987', 4.35, 'deleted', '2023-11-14 08:10:00'),
+(46, 'Luke Bailey', 'CDE987123', 4.00, 'active', '2023-11-15 13:40:00'),
+(47, 'Abigail Foster', 'FGH123654', 4.65, 'active', '2023-11-16 09:15:00'),
+(48, 'Oliver Graham', 'IJK987321', 3.85, 'suspended', '2023-11-17 10:30:00'),
+(49, 'Avery Bell', 'LMN321654', 4.45, 'active', '2023-11-18 11:20:00'),
+(50, 'Daniel Reed', 'OPQ654987', 4.95, 'active', '2023-11-19 12:50:00');
+
+
+-- VEHICLE TABLE --
+
+CREATE TABLE vehicle (
+    vehicle_id INT PRIMARY KEY,  -- Unique vehicle identifier
+    driver_id INT,  -- Reference to the driver table
+    make VARCHAR(50),  -- Car make (e.g., Toyota, Honda)
+    model VARCHAR(50),  -- Car model (e.g., Prius, Civic)
+    license_plate VARCHAR(20),  -- Vehicle’s license plate
+    vehicle_type ENUM('Car', 'Bike', 'Auto', 'Truck'),  -- Vehicle type (add more if necessary)
+    color VARCHAR(30),  -- Color of the vehicle
+    status ENUM('active', 'inactive', 'suspended'),  -- Vehicle status (customize as needed)
+    CONSTRAINT fk_driver FOREIGN KEY (driver_id) REFERENCES driver(driver_id)  -- Foreign key reference to driver table
+);
+
+
+INSERT INTO vehicle (vehicle_id, driver_id, make, model, license_plate, vehicle_type, color, status)
+VALUES
+(1, 1, 'Toyota', 'Prius', 'ABC1234', 'Car', 'White', 'active'),
+(2, 2, 'Honda', 'Civic', 'XYZ5678', 'Car', 'Black', 'active'),
+(3, 3, 'Suzuki', 'Gixxer', 'MNO2345', 'Bike', 'Red', 'inactive'),
+(4, 4, 'Ford', 'F-150', 'DEF6789', 'Truck', 'Blue', 'suspended'),
+(5, 5, 'Tesla', 'Model S', 'GHJ1122', 'Car', 'Silver', 'active'),
+(6, 6, 'Yamaha', 'R15', 'JKL3456', 'Bike', 'Yellow', 'inactive'),
+(7, 7, 'Chevrolet', 'Silverado', 'POI7890', 'Truck', 'Green', 'active'),
+(8, 8, 'Hyundai', 'Elantra', 'QWE5678', 'Car', 'White', 'active'),
+(9, 9, 'Kawasaki', 'Ninja', 'RTY6789', 'Bike', 'Black', 'suspended'),
+(10, 10, 'Mahindra', 'Scorpio', 'UIO3456', 'Car', 'Red', 'active'),
+(11, 11, 'Maruti', 'Swift', 'PAS4567', 'Car', 'Blue', 'active'),
+(12, 12, 'BMW', 'X5', 'DFA2345', 'Car', 'Black', 'inactive'),
+(13, 13, 'Mercedes', 'E-Class', 'LKJ6789', 'Car', 'Silver', 'active'),
+(14, 14, 'Audi', 'A4', 'JHG2345', 'Car', 'White', 'suspended'),
+(15, 15, 'Tata', 'Nexon', 'WEA1234', 'Car', 'Gray', 'active'),
+(16, 16, 'Honda', 'CBR500', 'HTY2345', 'Bike', 'Red', 'inactive'),
+(17, 17, 'Jeep', 'Wrangler', 'NMY6789', 'Truck', 'Green', 'active'),
+(18, 18, 'Ford', 'EcoSport', 'BYU1234', 'Car', 'Blue', 'suspended'),
+(19, 19, 'Toyota', 'Fortuner', 'MOP3456', 'Car', 'Silver', 'active'),
+(20, 20, 'Volkswagen', 'Polo', 'QWA6789', 'Car', 'Black', 'inactive'),
+(21, 21, 'Renault', 'Duster', 'ERF5678', 'Car', 'Gray', 'active'),
+(22, 22, 'Harley-Davidson', 'Iron 883', 'ASD2345', 'Bike', 'Black', 'active'),
+(23, 23, 'Nissan', 'Micra', 'ZXC6789', 'Car', 'White', 'inactive'),
+(24, 24, 'Royal Enfield', 'Classic 350', 'DFV5678', 'Bike', 'Green', 'active'),
+(25, 25, 'Chevrolet', 'Bolt', 'UHG2345', 'Car', 'Silver', 'suspended'),
+(26, 26, 'Honda', 'Jazz', 'MNB6789', 'Car', 'Blue', 'active'),
+(27, 27, 'Yamaha', 'MT-15', 'KLI3456', 'Bike', 'Yellow', 'inactive'),
+(28, 28, 'Tata', 'Safari', 'OPR1234', 'Car', 'Red', 'active'),
+(29, 29, 'Mahindra', 'XUV500', 'TVC6789', 'Car', 'Black', 'suspended'),
+(30, 30, 'Maruti', 'Baleno', 'WAS2345', 'Car', 'White', 'active'),
+(31, 31, 'Kia', 'Seltos', 'FRT6789', 'Car', 'Gray', 'active'),
+(32, 32, 'Volkswagen', 'Vento', 'YUO3456', 'Car', 'Blue', 'inactive'),
+(33, 33, 'TVS', 'Apache', 'HJY1234', 'Bike', 'Black', 'active'),
+(34, 34, 'Bajaj', 'Pulsar', 'XCV2345', 'Bike', 'Red', 'suspended'),
+(35, 35, 'Hero', 'Splendor', 'OPL5678', 'Bike', 'White', 'active'),
+(36, 36, 'Hyundai', 'i20', 'MOK3456', 'Car', 'Silver', 'active'),
+(37, 37, 'Kawasaki', 'Z1000', 'NOP6789', 'Bike', 'Green', 'inactive'),
+(38, 38, 'Renault', 'Kwid', 'BNM2345', 'Car', 'Black', 'suspended'),
+(39, 39, 'Skoda', 'Rapid', 'LKJ5678', 'Car', 'Blue', 'active'),
+(40, 40, 'Tata', 'Tiago', 'YUB6789', 'Car', 'White', 'active'),
+(41, 41, 'Suzuki', 'Hayabusa', 'WER2345', 'Bike', 'Black', 'active'),
+(42, 42, 'Ford', 'Mustang', 'ASW6789', 'Car', 'Red', 'suspended'),
+(43, 43, 'Jeep', 'Compass', 'MNT3456', 'Truck', 'Silver', 'active'),
+(44, 44, 'Mahindra', 'Bolero', 'NMK5678', 'Truck', 'White', 'inactive'),
+(45, 45, 'Hero', 'Xtreme', 'UIK6789', 'Bike', 'Blue', 'active'),
+(46, 46, 'Maruti', 'Alto', 'PLM2345', 'Car', 'Red', 'suspended'),
+(47, 47, 'Yamaha', 'FZ', 'OPA5678', 'Bike', 'Yellow', 'active'),
+(48, 48, 'Volkswagen', 'Passat', 'NMJ3456', 'Car', 'Black', 'active'),
+(49, 49, 'Nissan', 'Sunny', 'LOP6789', 'Car', 'Gray', 'inactive'),
+(50, 50, 'Honda', 'Activa', 'ZXC3456', 'Bike', 'White', 'active');
+
+
+-- RIDE TABLE --
+
+CREATE TABLE ride (
+    ride_id INT PRIMARY KEY AUTO_INCREMENT,
+    driver_id INT,
+    customer_id INT,
+    pickup_location VARCHAR(255),
+    dropoff_location VARCHAR(255),
+    ride_status ENUM('Requested', 'In Progress', 'Completed', 'Canceled'),
+    ride_start_time TIMESTAMP,
+    ride_end_time TIMESTAMP,
+    distance DECIMAL(10,2),
+    fare DECIMAL(10,2),
+    payment_status ENUM('Pending', 'Completed', 'Failed'),
+    FOREIGN KEY (driver_id) REFERENCES driver(driver_id),  -- Assuming a Driver table exists
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id) -- Assuming a Customer table exists
+);
+
+
+INSERT INTO ride (driver_id, customer_id, pickup_location, dropoff_location, ride_status, ride_start_time, ride_end_time, distance, fare, payment_status) VALUES
+(1, 1, '37.7749,-122.4194', '37.7849,-122.4094', 'Completed', '2024-10-01 10:00:00', '2024-10-01 10:15:00', 5.00, 15.00, 'Completed'),
+(1, 2, '37.7749,-122.4294', '37.7849,-122.4394', 'Completed', '2024-10-01 10:30:00', '2024-10-01 10:45:00', 3.50, 12.00, 'Completed'),
+(1, 3, '37.7649,-122.4194', '37.7749,-122.4194', 'Canceled', '2024-10-01 11:00:00', NULL, 4.20, 0.00, 'Failed'),
+(1, 4, '37.7749,-122.4394', '37.7849,-122.4494', 'In Progress', '2024-10-01 11:30:00', NULL, 2.80, 10.00, 'Pending'),
+(1, 5, '37.7649,-122.4594', '37.7749,-122.4694', 'Completed', '2024-10-01 12:00:00', '2024-10-01 12:20:00', 6.00, 20.00, 'Completed'),
+(1, 6, '37.7749,-122.4694', '37.7849,-122.4794', 'In Progress', '2024-10-01 12:30:00', NULL, 2.50, 8.00, 'Pending'),
+(1, 7, '37.7849,-122.4794', '37.7949,-122.4894', 'Completed', '2024-10-01 13:00:00', '2024-10-01 13:15:00', 7.50, 22.00, 'Completed'),
+(1, 8, '37.7949,-122.4894', '37.8049,-122.4994', 'Canceled', '2024-10-01 13:30:00', NULL, 3.00, 0.00, 'Failed'),
+(1, 9, '37.8049,-122.4994', '37.8149,-122.5094', 'Completed', '2024-10-01 14:00:00', '2024-10-01 14:25:00', 4.50, 18.00, 'Completed'),
+(1, 10, '37.8149,-122.5094', '37.8249,-122.5194', 'In Progress', '2024-10-01 14:30:00', NULL, 5.20, 15.00, 'Pending'),
+(2, 11, '37.8249,-122.5194', '37.8349,-122.5294', 'Completed', '2024-10-01 15:00:00', '2024-10-01 15:10:00', 3.10, 9.00, 'Completed'),
+(2, 12, '37.8349,-122.5294', '37.8449,-122.5394', 'Completed', '2024-10-01 15:15:00', '2024-10-01 15:30:00', 6.40, 20.00, 'Completed'),
+(2, 13, '37.8449,-122.5394', '37.8549,-122.5494', 'In Progress', '2024-10-01 16:00:00', NULL, 2.80, 11.00, 'Pending'),
+(2, 14, '37.8549,-122.5494', '37.8649,-122.5594', 'Canceled', '2024-10-01 16:30:00', NULL, 1.50, 0.00, 'Failed'),
+(2, 15, '37.8649,-122.5594', '37.8749,-122.5694', 'Completed', '2024-10-01 17:00:00', '2024-10-01 17:15:00', 3.90, 12.00, 'Completed'),
+(2, 16, '37.8749,-122.5694', '37.8849,-122.5794', 'In Progress', '2024-10-01 17:30:00', NULL, 4.70, 14.00, 'Pending'),
+(2, 17, '37.8849,-122.5794', '37.8949,-122.5894', 'Completed', '2024-10-01 18:00:00', '2024-10-01 18:20:00', 5.60, 17.00, 'Completed'),
+(2, 18, '37.8949,-122.5894', '37.9049,-122.5994', 'Completed', '2024-10-01 18:30:00', '2024-10-01 18:45:00', 2.90, 10.00, 'Completed'),
+(2, 19, '37.9049,-122.5994', '37.9149,-122.6094', 'Canceled', '2024-10-01 19:00:00', NULL, 4.20, 0.00, 'Failed'),
+(2, 20, '37.9149,-122.6094', '37.9249,-122.6194', 'In Progress', '2024-10-01 19:15:00', NULL, 3.80, 12.00, 'Pending'),
+(3, 21, '37.9249,-122.6194', '37.9349,-122.6294', 'Completed', '2024-10-01 19:30:00', '2024-10-01 19:45:00', 5.00, 15.00, 'Completed'),
+(3, 22, '37.9349,-122.6294', '37.9449,-122.6394', 'Completed', '2024-10-01 20:00:00', '2024-10-01 20:10:00', 4.30, 13.00, 'Completed'),
+(3, 23, '37.9449,-122.6394', '37.9549,-122.6494', 'Canceled', '2024-10-01 20:30:00', NULL, 3.60, 0.00, 'Failed'),
+(3, 24, '37.9549,-122.6494', '37.9649,-122.6594', 'In Progress', '2024-10-01 21:00:00', NULL, 2.70, 9.00, 'Pending'),
+(3, 25, '37.9649,-122.6594', '37.9749,-122.6694', 'Completed', '2024-10-01 21:30:00', '2024-10-01 21:45:00', 4.00, 11.00, 'Completed'),
+(3, 26, '37.9749,-122.6694', '37.9849,-122.6794', 'In Progress', '2024-10-01 22:00:00', NULL, 3.50, 10.00, 'Pending'),
+(3, 27, '37.9849,-122.6794', '37.9949,-122.6894', 'Canceled', '2024-10-01 22:30:00', NULL, 1.80, 0.00, 'Failed'),
+(3, 28, '37.9949,-122.6894', '37.9049,-122.6994', 'Completed', '2024-10-01 23:00:00', '2024-10-01 23:15:00', 5.30, 16.00, 'Completed'),
+(3, 29, '37.9049,-122.6994', '37.9149,-122.7094', 'Completed', '2024-10-02 00:00:00', '2024-10-02 00:20:00', 4.90, 14.00, 'Completed'),
+(3, 30, '37.9149,-122.7094', '37.9249,-122.7194', 'In Progress', '2024-10-02 00:30:00', NULL, 3.40, 12.00, 'Pending'),
+(4, 31, '37.9249,-122.7194', '37.9349,-122.7294', 'Completed', '2024-10-02 01:00:00', '2024-10-02 01:15:00', 4.00, 12.00, 'Completed'),
+(4, 32, '37.9349,-122.7294', '37.9449,-122.7394', 'In Progress', '2024-10-02 01:30:00', NULL, 2.60, 9.00, 'Pending'),
+(4, 33, '37.9449,-122.7394', '37.9549,-122.7494', 'Canceled', '2024-10-02 02:00:00', NULL, 1.20, 0.00, 'Failed'),
+(4, 34, '37.9549,-122.7494', '37.9649,-122.7594', 'Completed', '2024-10-02 02:30:00', '2024-10-02 02:45:00', 3.70, 11.00, 'Completed'),
+(4, 35, '37.9649,-122.7594', '37.9749,-122.7694', 'In Progress', '2024-10-02 03:00:00', NULL, 2.30, 8.00, 'Pending'),
+(4, 36, '37.9749,-122.7694', '37.9849,-122.7794', 'Completed', '2024-10-02 03:30:00', '2024-10-02 03:45:00', 4.80, 15.00, 'Completed'),
+(4, 37, '37.9849,-122.7794', '37.9949,-122.7894', 'Canceled', '2024-10-02 04:00:00', NULL, 3.30, 0.00, 'Failed'),
+(4, 38, '37.9949,-122.7894', '37.9049,-122.7994', 'In Progress', '2024-10-02 04:30:00', NULL, 2.40, 9.00, 'Pending'),
+(5, 39, '37.9049,-122.7994', '37.9149,-122.8094', 'Completed', '2024-10-02 05:00:00', '2024-10-02 05:10:00', 4.10, 12.00, 'Completed'),
+(5, 40, '37.9149,-122.8094', '37.9249,-122.8194', 'Completed', '2024-10-02 05:15:00', '2024-10-02 05:30:00', 3.20, 11.00, 'Completed'),
+(5, 41, '37.9249,-122.8194', '37.9349,-122.8294', 'Canceled', '2024-10-02 06:00:00', NULL, 2.90, 0.00, 'Failed'),
+(5, 42, '37.9349,-122.8294', '37.9449,-122.8394', 'In Progress', '2024-10-02 06:30:00', NULL, 1.60, 7.00, 'Pending'),
+(5, 43, '37.9449,-122.8394', '37.9549,-122.8494', 'Completed', '2024-10-02 07:00:00', '2024-10-02 07:15:00', 3.80, 14.00, 'Completed'),
+(5, 44, '37.9549,-122.8494', '37.9649,-122.8594', 'In Progress', '2024-10-02 07:30:00', NULL, 2.50, 8.00, 'Pending'),
+(5, 45, '37.9649,-122.8594', '37.9749,-122.8694', 'Canceled', '2024-10-02 08:00:00', NULL, 1.70, 0.00, 'Failed'),
+(5, 46, '37.9749,-122.8694', '37.9849,-122.8794', 'Completed', '2024-10-02 08:30:00', '2024-10-02 08:45:00', 4.20, 13.00, 'Completed'),
+(5, 47, '37.9849,-122.8794', '37.9949,-122.8894', 'In Progress', '2024-10-02 09:00:00', NULL, 3.00, 9.00, 'Pending'),
+(5, 48, '37.9949,-122.8894', '37.9049,-122.8994', 'Completed', '2024-10-02 09:30:00', '2024-10-02 09:45:00', 5.40, 16.00, 'Completed'),
+(5, 49, '37.9049,-122.8994', '37.9149,-122.9094', 'Canceled', '2024-10-02 10:00:00', NULL, 4.10, 0.00, 'Failed'),
+(5, 50, '37.9149,-122.9094', '37.9249,-122.9194', 'In Progress', '2024-10-02 10:30:00', NULL, 3.50, 11.00, 'Pending');
+
+
+-- PAYMENT TABLE --
+CREATE TABLE payment (
+    payment_id INT PRIMARY KEY AUTO_INCREMENT,
+    ride_id INT,
+    customer_id INT,
+    amount DECIMAL(10, 2),
+    payment_method VARCHAR(50),
+    payment_status ENUM('Pending', 'Completed', 'Failed'),
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ride_id) REFERENCES ride(ride_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+
+
+INSERT INTO payment (ride_id, customer_id, amount, payment_method, payment_status, payment_date) VALUES
+(1, 1, 15.00, 'Credit Card', 'Completed', '2024-10-01 10:15:00'),
+(2, 2, 12.00, 'Debit Card', 'Completed', '2024-10-01 10:45:00'),
+(3, 3, 0.00, 'Wallet', 'Failed', '2024-10-01 11:00:00'),
+(4, 4, 10.00, 'Credit Card', 'Pending', '2024-10-01 11:30:00'),
+(5, 5, 20.00, 'Credit Card', 'Completed', '2024-10-01 12:20:00'),
+(6, 6, 8.00, 'Debit Card', 'Pending', '2024-10-01 12:30:00'),
+(7, 7, 22.00, 'Credit Card', 'Completed', '2024-10-01 13:15:00'),
+(8, 8, 0.00, 'Wallet', 'Failed', '2024-10-01 13:30:00'),
+(9, 9, 18.00, 'Credit Card', 'Completed', '2024-10-01 14:25:00'),
+(10, 10, 15.00, 'Debit Card', 'Pending', '2024-10-01 14:30:00'),
+(11, 11, 9.00, 'Credit Card', 'Completed', '2024-10-01 15:10:00'),
+(12, 12, 20.00, 'Credit Card', 'Completed', '2024-10-01 15:30:00'),
+(13, 13, 11.00, 'Debit Card', 'Pending', '2024-10-01 16:00:00'),
+(14, 14, 0.00, 'Wallet', 'Failed', '2024-10-01 16:30:00'),
+(15, 15, 12.00, 'Credit Card', 'Completed', '2024-10-01 17:15:00'),
+(16, 16, 14.00, 'Debit Card', 'Pending', '2024-10-01 17:30:00'),
+(17, 17, 17.00, 'Credit Card', 'Completed', '2024-10-01 18:20:00'),
+(18, 18, 10.00, 'Debit Card', 'Completed', '2024-10-01 18:45:00'),
+(19, 19, 0.00, 'Wallet', 'Failed', '2024-10-01 19:00:00'),
+(20, 20, 12.00, 'Credit Card', 'Pending', '2024-10-01 19:15:00'),
+(21, 21, 15.00, 'Credit Card', 'Completed', '2024-10-01 19:45:00'),
+(22, 22, 13.00, 'Credit Card', 'Completed', '2024-10-01 20:10:00'),
+(23, 23, 0.00, 'Wallet', 'Failed', '2024-10-01 20:30:00'),
+(24, 24, 9.00, 'Debit Card', 'Pending', '2024-10-01 21:00:00'),
+(25, 25, 11.00, 'Credit Card', 'Completed', '2024-10-01 21:45:00'),
+(26, 26, 10.00, 'Credit Card', 'Pending', '2024-10-01 22:00:00'),
+(27, 27, 16.00, 'Debit Card', 'Completed', '2024-10-01 23:15:00'),
+(28, 28, 7.00, 'Wallet', 'Completed', '2024-10-02 00:15:00'),
+(29, 29, 0.00, 'Wallet', 'Failed', '2024-10-02 01:00:00'),
+(30, 30, 18.00, 'Credit Card', 'Pending', '2024-10-02 02:00:00'),
+(31, 31, 14.00, 'Credit Card', 'Completed', '2024-10-02 03:20:00'),
+(32, 32, 19.00, 'Debit Card', 'Completed', '2024-10-02 04:15:00'),
+(33, 33, 0.00, 'Wallet', 'Failed', '2024-10-02 05:00:00'),
+(34, 34, 11.00, 'Debit Card', 'Pending', '2024-10-02 06:00:00'),
+(35, 35, 15.00, 'Credit Card', 'Completed', '2024-10-02 07:20:00'),
+(36, 36, 20.00, 'Credit Card', 'Pending', '2024-10-02 08:00:00'),
+(37, 37, 17.00, 'Debit Card', 'Completed', '2024-10-02 09:10:00'),
+(38, 38, 0.00, 'Wallet', 'Failed', '2024-10-02 10:00:00'),
+(39, 39, 9.00, 'Credit Card', 'Pending', '2024-10-02 11:00:00'),
+(40, 40, 14.00, 'Credit Card', 'Completed', '2024-10-02 12:15:00'),
+(41, 41, 0.00, 'Wallet', 'Failed', '2024-10-02 13:00:00'),
+(42, 42, 10.00, 'Debit Card', 'Pending', '2024-10-02 14:00:00'),
+(43, 43, 16.00, 'Credit Card', 'Completed', '2024-10-02 15:30:00'),
+(44, 44, 0.00, 'Wallet', 'Failed', '2024-10-02 16:00:00'),
+(45, 45, 8.00, 'Debit Card', 'Pending', '2024-10-02 17:00:00'),
+(46, 46, 12.00, 'Credit Card', 'Completed', '2024-10-02 18:10:00'),
+(47, 47, 9.00, 'Credit Card', 'Completed', '2024-10-02 19:20:00'),
+(48, 48, 0.00, 'Wallet', 'Failed', '2024-10-02 20:00:00'),
+(49, 49, 5.00, 'Debit Card', 'Pending', '2024-10-02 21:00:00'),
+(50, 50, 17.00, 'Credit Card', 'Pending', '2024-10-02 21:00:00');
+
+
+
+-- ROUTE TABLE --
+
+CREATE TABLE route (
+    route_id INT AUTO_INCREMENT PRIMARY KEY,
+    ride_id INT,
+    start_location VARCHAR(255),
+    end_location VARCHAR(255),
+    intermediate_points TEXT,
+    duration INT,
+    FOREIGN KEY (ride_id) REFERENCES ride(ride_id)
+);
+
+
+
+INSERT INTO route (route_id, ride_id, start_location, end_location, intermediate_points, duration) VALUES
+(1, 1, 'Location A', 'Location B', '[]', 15),
+(2, 2, 'Location C', 'Location D', '["Location E", "Location F"]', 20),
+(3, 3, 'Location G', 'Location H', '[]', 10),
+(4, 4, 'Location I', 'Location J', '["Location K"]', 25),
+(5, 5, 'Location L', 'Location M', '["Location N", "Location O", "Location P"]', 30),
+(6, 6, 'Location Q', 'Location R', '[]', 18),
+(7, 7, 'Location S', 'Location T', '["Location U"]', 22),
+(8, 8, 'Location V', 'Location W', '[]', 16),
+(9, 9, 'Location X', 'Location Y', '["Location Z"]', 28),
+(10, 10, 'Location AA', 'Location AB', '["Location AC", "Location AD"]', 35),
+(11, 11, 'Location AE', 'Location AF', '[]', 14),
+(12, 12, 'Location AG', 'Location AH', '["Location AI"]', 20),
+(13, 13, 'Location AJ', 'Location AK', '[]', 17),
+(14, 14, 'Location AL', 'Location AM', '["Location AN", "Location AO"]', 24),
+(15, 15, 'Location AP', 'Location AQ', '[]', 19),
+(16, 16, 'Location AR', 'Location AS', '["Location AT"]', 15),
+(17, 17, 'Location AU', 'Location AV', '[]', 23),
+(18, 18, 'Location AW', 'Location AX', '["Location AY", "Location AZ"]', 12),
+(19, 19, 'Location BA', 'Location BB', '[]', 18),
+(20, 20, 'Location BC', 'Location BD', '["Location BE"]', 20),
+(21, 21, 'Location BF', 'Location BG', '[]', 15),
+(22, 22, 'Location BH', 'Location BI', '["Location BJ", "Location BK"]', 30),
+(23, 23, 'Location BL', 'Location BM', '[]', 21),
+(24, 24, 'Location BN', 'Location BO', '["Location BP"]', 28),
+(25, 25, 'Location BQ', 'Location BR', '[]', 16),
+(26, 26, 'Location BS', 'Location BT', '["Location BU"]', 10),
+(27, 27, 'Location BV', 'Location BW', '[]', 15),
+(28, 28, 'Location BX', 'Location BY', '["Location BZ", "Location CA"]', 32),
+(29, 29, 'Location CB', 'Location CC', '[]', 14),
+(30, 30, 'Location CD', 'Location CE', '["Location CF"]', 18),
+(31, 31, 'Location CG', 'Location CH', '[]', 26),
+(32, 32, 'Location CI', 'Location CJ', '["Location CK", "Location CL"]', 25),
+(33, 33, 'Location CM', 'Location CN', '[]', 12),
+(34, 34, 'Location CO', 'Location CP', '["Location CQ"]', 20),
+(35, 35, 'Location CR', 'Location CS', '[]', 17),
+(36, 36, 'Location CT', 'Location CU', '["Location CV"]', 15),
+(37, 37, 'Location CW', 'Location CX', '[]', 22),
+(38, 38, 'Location CY', 'Location CZ', '["Location DA", "Location DB"]', 30),
+(39, 39, 'Location DC', 'Location DD', '[]', 19),
+(40, 40, 'Location DE', 'Location DF', '["Location DG"]', 25),
+(41, 41, 'Location DH', 'Location DI', '[]', 16),
+(42, 42, 'Location DJ', 'Location DK', '["Location DL", "Location DM"]', 28),
+(43, 43, 'Location DN', 'Location DO', '[]', 21),
+(44, 44, 'Location DP', 'Location DQ', '["Location DR"]', 24),
+(45, 45, 'Location DS', 'Location DT', '[]', 20),
+(46, 46, 'Location DU', 'Location DV', '["Location DW"]', 14),
+(47, 47, 'Location DX', 'Location DY', '[]', 18),
+(48, 48, 'Location DZ', 'Location EA', '["Location EB", "Location EC"]', 30),
+(49, 49, 'Location ED', 'Location EE', '[]', 12),
+(50, 50, 'Location EF', 'Location EG', '["Location EH"]', 22);
+
+
+-- DRIVER LOCATION TABLE --
+
+CREATE TABLE driver_location (
+    location_id INT AUTO_INCREMENT PRIMARY KEY,
+    driver_id INT,
+    latitude DECIMAL(9, 6),
+    longitude DECIMAL(9, 6),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (driver_id) REFERENCES driver(driver_id)
+);
+
+
+INSERT INTO driver_location (driver_id, latitude, longitude, timestamp) VALUES
+(1, 34.052235, -118.243683, NOW()),
+(2, 40.712776, -74.005974, NOW()),
+(3, 37.774929, -122.419418, NOW()),
+(4, 51.507351, -0.127758, NOW()),
+(5, 48.856613, 2.352222, NOW()),
+(6, 35.689487, 139.691711, NOW()),
+(7, -33.448376, -70.769877, NOW()),
+(8, 55.755825, 37.617298, NOW()),
+(9, 39.904202, 116.407394, NOW()),
+(10, 1.352083, 103.819836, NOW()),
+(11, 52.520008, 13.404954, NOW()),
+(12, 40.416775, -3.703790, NOW()),
+(13, 37.983810, 23.727539, NOW()),
+(14, 28.613939, 77.209023, NOW()),
+(15, 55.953251, -3.188267, NOW()),
+(16, 59.934280, 30.335099, NOW()),
+(17, 35.676192, 139.650310, NOW()),
+(18, 33.448376, -112.074036, NOW()),
+(19, 19.432608, -99.133209, NOW()),
+(20, 45.464211, 9.191383, NOW()),
+(21, 36.204824, 138.252924, NOW()),
+(22, -22.906847, -43.172896, NOW()),
+(23, -34.603684, -58.381559, NOW()),
+(24, 1.290270, 103.851959, NOW()),
+(25, 35.689500, 139.691700, NOW()),
+(26, 34.052300, -118.243700, NOW()),
+(27, 30.044420, 31.235712, NOW()),
+(28, 52.367573, 4.904139, NOW()),
+(29, 59.329323, 18.068581, NOW()),
+(30, 47.606209, -122.332071, NOW()),
+(31, 36.169941, -115.139830, NOW()),
+(32, 43.653225, -79.383186, NOW()),
+(33, -26.204102, 28.047305, NOW()),
+(34, 55.755825, 37.617298, NOW()),
+(35, 40.730610, -73.935242, NOW()),
+(36, 51.165691, 10.451526, NOW()),
+(37, 48.135124, 11.581981, NOW()),
+(38, 39.739236, -104.990251, NOW()),
+(39, 38.907192, -77.036871, NOW()),
+(40, 41.902782, 12.496366, NOW()),
+(41, -1.286389, 36.817223, NOW()),
+(42, 13.756331, 100.501762, NOW()),
+(43, -3.745846, -38.526213, NOW()),
+(44, 37.774929, -122.419418, NOW()),
+(45, 34.052235, -118.243683, NOW()),
+(46, 1.352083, 103.819836, NOW()),
+(47, 19.076090, 72.877426, NOW()),
+(48, 55.755825, 37.617298, NOW()),
+(49, 40.730610, -73.935242, NOW()),
+(50, 30.592849, 31.331981, NOW());
+
+
+
+-- RIDE FEEDBACK TABLE --
+
+CREATE TABLE ride_feedback (
+    feedback_id INT AUTO_INCREMENT PRIMARY KEY,
+    ride_id INT,
+    customer_id INT,
+    driver_id INT,
+    rating DECIMAL(2, 1) CHECK (rating BETWEEN 1 AND 5),
+    comments TEXT,
+    feedback_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ride_id) REFERENCES ride(ride_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    FOREIGN KEY (driver_id) REFERENCES driver(driver_id)
+);
+
+
+INSERT INTO ride_feedback (ride_id, customer_id, driver_id, rating, comments, feedback_date) VALUES
+(1, 1, 1, 4.5, 'Great service, very polite driver.', NOW()),
+(2, 2, 1, 5.0, 'Fantastic ride, highly recommend!', NOW()),
+(3, 3, 2, 3.5, 'The ride was okay, but the car was a bit dirty.', NOW()),
+(4, 4, 2, 4.0, 'Driver was friendly, but took a longer route.', NOW()),
+(5, 5, 3, 2.0, 'Not satisfied, the driver was rude.', NOW()),
+(6, 6, 3, 4.5, 'Excellent service, will use again!', NOW()),
+(7, 7, 4, 3.0, 'Average experience, nothing special.', NOW()),
+(8, 8, 4, 4.0, 'Nice ride, but the AC was not working.', NOW()),
+(9, 9, 5, 5.0, 'Best ride ever! The driver was amazing!', NOW()),
+(10, 10, 5, 2.5, 'The car was uncomfortable.', NOW()),
+(11, 11, 6, 4.0, 'Quick and safe ride.', NOW()),
+(12, 12, 6, 3.5, 'Driver was on time but not very talkative.', NOW()),
+(13, 13, 7, 5.0, 'Exceptional service!', NOW()),
+(14, 14, 7, 1.5, 'Poor experience, driver was late.', NOW()),
+(15, 15, 8, 4.5, 'Smooth ride and friendly driver.', NOW()),
+(16, 16, 8, 3.0, 'Decent ride, but could be improved.', NOW()),
+(17, 17, 9, 5.0, 'Loved the ride! Will definitely use again.', NOW()),
+(18, 18, 9, 2.0, 'Not great, driver was rude.', NOW()),
+(19, 19, 10, 4.0, 'Good ride, would recommend!', NOW()),
+(20, 20, 10, 3.5, 'Ride was okay, but the driver was a bit lost.', NOW()),
+(21, 21, 11, 4.5, 'Great experience, thank you!', NOW()),
+(22, 22, 11, 5.0, 'Amazing service!', NOW()),
+(23, 23, 12, 3.0, 'Satisfactory ride, nothing too special.', NOW()),
+(24, 24, 12, 4.0, 'Very nice driver, enjoyed the ride.', NOW()),
+(25, 25, 13, 2.5, 'Ride was late and uncomfortable.', NOW()),
+(26, 26, 13, 4.5, 'Driver was very nice and professional.', NOW()),
+(27, 27, 14, 5.0, 'Excellent service, would highly recommend!', NOW()),
+(28, 28, 14, 3.0, 'Average ride, driver could be more engaging.', NOW()),
+(29, 29, 15, 4.0, 'Enjoyed the ride!', NOW()),
+(30, 30, 15, 1.0, 'Very bad experience, driver was rude.', NOW()),
+(31, 31, 16, 4.5, 'Great ride, would use again!', NOW()),
+(32, 32, 16, 3.0, 'It was okay, but the driver was a bit distracted.', NOW()),
+(33, 33, 17, 5.0, 'Fantastic ride, very professional!', NOW()),
+(34, 34, 17, 2.0, 'Not a good experience, the car was messy.', NOW()),
+(35, 35, 18, 4.0, 'Very good service.', NOW()),
+(36, 36, 18, 5.0, 'Best driver I ever had!', NOW()),
+(37, 37, 19, 3.5, 'Decent ride but could be improved.', NOW()),
+(38, 38, 19, 4.5, 'Really enjoyed the ride!', NOW()),
+(39, 39, 20, 2.0, 'Driver was late and unfriendly.', NOW()),
+(40, 40, 20, 4.0, 'Good ride, would recommend!', NOW()),
+(41, 41, 21, 4.5, 'Very nice driver!', NOW()),
+(42, 42, 21, 3.0, 'Average ride, could have been better.', NOW()),
+(43, 43, 22, 5.0, 'Loved it!', NOW()),
+(44, 44, 22, 2.5, 'Driver was not polite.', NOW()),
+(45, 45, 23, 4.0, 'Great ride!', NOW()),
+(46, 46, 23, 3.5, 'It was okay.', NOW()),
+(47, 47, 24, 5.0, 'Fantastic service!', NOW()),
+(48, 48, 24, 1.5, 'Very unsatisfied with the service.', NOW()),
+(49, 49, 25, 4.5, 'Great experience!', NOW()),
+(50, 50, 25, 3.0, 'It was a decent ride.', NOW());
+
+
+
+
+-- ANALYTICS TABLE --
+
+CREATE TABLE analytics (
+    analytic_id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE,
+    total_rides INT,
+    avg_fare DECIMAL(10, 2),
+    total_revenue DECIMAL(10, 2),
+    avg_rating DECIMAL(3, 2),
+    UNIQUE (date)  -- Ensure each date has a unique entry
+);
+
+
+INSERT INTO analytics (date, total_rides, avg_fare, total_revenue, avg_rating) VALUES
+('2024-10-01', 150, 15.50, 2325.00, 4.20),
+('2024-10-02', 175, 18.30, 3217.50, 4.45),
+('2024-10-03', 200, 16.75, 3350.00, 4.60),
+('2024-10-04', 220, 17.20, 3784.00, 4.35),
+('2024-10-05', 185, 19.00, 3515.00, 4.55),
+('2024-10-06', 160, 15.00, 2400.00, 4.10),
+('2024-10-07', 190, 20.25, 3847.50, 4.70),
+('2024-10-08', 210, 22.00, 4620.00, 4.80),
+('2024-10-09', 175, 14.75, 2585.00, 4.25),
+('2024-10-10', 230, 21.50, 4945.00, 4.50),
+('2024-10-11', 145, 18.75, 2718.75, 4.15),
+('2024-10-12', 155, 17.80, 2759.00, 4.40),
+('2024-10-13', 200, 20.00, 4000.00, 4.65),
+('2024-10-14', 165, 19.50, 3217.50, 4.30),
+('2024-10-15', 180, 22.25, 4005.00, 4.75),
+('2024-10-16', 215, 21.00, 4515.00, 4.50),
+('2024-10-17', 190, 16.50, 3135.00, 4.35),
+('2024-10-18', 175, 18.60, 3255.00, 4.55),
+('2024-10-19', 200, 20.50, 4100.00, 4.60),
+('2024-10-20', 160, 14.00, 2240.00, 4.05),
+('2024-10-21', 185, 17.25, 3195.00, 4.25),
+('2024-10-22', 170, 19.00, 3230.00, 4.45),
+('2024-10-23', 195, 22.75, 4436.25, 4.65),
+('2024-10-24', 210, 18.00, 3780.00, 4.40),
+('2024-10-25', 230, 19.80, 4554.00, 4.60),
+('2024-10-26', 150, 15.00, 2250.00, 4.10),
+('2024-10-27', 180, 16.00, 2880.00, 4.35),
+('2024-10-28', 200, 21.00, 4200.00, 4.55),
+('2024-10-29', 170, 20.25, 3432.50, 4.65),
+('2024-10-30', 190, 22.50, 4275.00, 4.70),
+('2024-10-31', 210, 20.00, 4200.00, 4.60);
+
+
+
+
+-- Active Customers --
+
+SELECT * FROM customer WHERE status = 'active';
+
+
+-- Update Driver Status --
+
+UPDATE driver SET status = 'suspended' WHERE driver_id = 7;
+
+
+-- Retrieve Drivers with Ratings Above 4.5 --
+
+SELECT * FROM driver WHERE rating > 4.5;
+
+
+-- Count Active Vehicles --
+
+SELECT COUNT(*) AS active_vehicles FROM vehicle WHERE status = 'active';
+
+-- Find Customers with Specific Payment Method --
+
+SELECT * FROM customer WHERE payment_method = 'Credit Card';
+
+
+-- INNER JOIN --
+
+-- Get payment details along with ride and customer information
+SELECT 
+    p.payment_id, 
+    p.amount, 
+    p.payment_method, 
+    p.payment_status, 
+    r.pickup_location, 
+    r.dropoff_location, 
+    c.name 
+FROM 
+    payment p 
+INNER JOIN 
+    ride r ON p.ride_id = r.ride_id 
+INNER JOIN 
+    customer c ON p.customer_id = c.customer_id;
+
+
+-- LEFT JOIN --
+
+-- Get all rides and any associated payments, even if there are no payments
+SELECT 
+    r.ride_id, 
+    r.pickup_location, 
+    r.dropoff_location, 
+    p.amount, 
+    p.payment_status 
+FROM 
+    ride r 
+LEFT JOIN 
+    payment p ON r.ride_id = p.ride_id;
+
+
+
+-- RIGHT JOIN --
+
+-- Get all payments and any associated rides, even if there are no rides
+SELECT 
+    p.payment_id, 
+    p.amount, 
+    p.payment_method, 
+    r.pickup_location, 
+    r.dropoff_location 
+FROM 
+    payment p 
+RIGHT JOIN 
+    ride r ON p.ride_id = r.ride_id;
+
+
+
+-- FULL OUTER JOIN --
+
+-- Get all rides and payments, including those without matches in either table
+SELECT 
+    r.ride_id, 
+    p.payment_id, 
+    p.amount 
+FROM 
+    ride r 
+LEFT JOIN 
+    payment p ON r.ride_id = p.ride_id
+
+UNION
+
+SELECT 
+    r.ride_id, 
+    p.payment_id, 
+    p.amount 
+FROM 
+    ride r 
+RIGHT JOIN 
+    payment p ON r.ride_id = p.ride_id;
+    
+    
+-- Get feedback along with ride, customer, and driver information--
+SELECT 
+    rf.feedback_id, 
+    rf.rating, 
+    rf.comments, 
+    r.pickup_location, 
+    r.dropoff_location, 
+    c.name, 
+    d.name 
+FROM 
+    ride_feedback rf 
+INNER JOIN 
+    ride r ON rf.ride_id = r.ride_id 
+INNER JOIN 
+    customer c ON rf.customer_id = c.customer_id 
+INNER JOIN 
+    driver d ON rf.driver_id = d.driver_id;
+
+
+
+-- Get driver locations along with the rides they are currently driving --
+
+SELECT 
+    dl.driver_id, 
+    dl.latitude, 
+    dl.longitude, 
+    r.pickup_location, 
+    r.dropoff_location 
+FROM 
+    driver_location dl 
+LEFT JOIN 
+    ride r ON dl.driver_id = r.driver_id;
+
+
+
+
+
