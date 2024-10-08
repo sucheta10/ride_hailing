@@ -24,4 +24,4 @@ A comprehensive database designed to manage the operations of a ride-hailing ser
 
 ---
 
-You can copy this structure and further customize it in your GitHub repository.
+Feel free to reach out if you have any questions or need further details about the database design!
