@@ -1,6 +1,3 @@
-Here’s a sample `README.md` file for your ride-hailing service database project on GitHub:
-
----
 
 # Ride-Hailing Service Database
 
